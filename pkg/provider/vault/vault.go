@@ -497,6 +497,10 @@ func (v *client) GetSecret(ctx context.Context, ref esv1beta1.ExternalSecretData
 	if err != nil {
 		return nil, err
 	}
+	// Return empty byte array if secret value is null
+	if data == nil {
+		return make([]byte, 0), nil
+	}
 	jsonStr, err := json.Marshal(data)
 	if err != nil {
 		return nil, err
@@ -696,6 +700,9 @@ func (v *client) readSecret(ctx context.Context, path, version string) (map[stri
 
 		if !ok {
 			return nil, errors.New(errDataField)
+		}
+		if dataInt == nil {
+			return nil, nil
 		}
 		secretData, ok = dataInt.(map[string]interface{})
 		if !ok {
