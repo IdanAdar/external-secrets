@@ -1160,6 +1160,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../provider/doppler/" class="md-nav__link">
+        Doppler
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -1797,6 +1811,24 @@ AkeylessAuthSecretRef
 </em>
 </td>
 <td>
+<em>(Optional)</em>
+<p>Reference to a Secret that contains the details
+to authenticate with Akeyless.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>kubernetesAuth</code></br>
+<em>
+<a href="#external-secrets.io/v1beta1.AkeylessKubernetesAuth">
+AkeylessKubernetesAuth
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Kubernetes authenticates with Akeyless by passing the ServiceAccount
+token stored in the named Secret resource.</p>
 </td>
 </tr>
 </tbody>
@@ -1848,6 +1880,77 @@ github.com/external-secrets/external-secrets/apis/meta/v1.SecretKeySelector
 </em>
 </td>
 <td>
+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="external-secrets.io/v1beta1.AkeylessKubernetesAuth">AkeylessKubernetesAuth
+</h3>
+<p>
+(<em>Appears on:</em>
+<a href="#external-secrets.io/v1beta1.AkeylessAuth">AkeylessAuth</a>)
+</p>
+<p>
+<p>Authenticate with Kubernetes ServiceAccount token stored.</p>
+</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>accessID</code></br>
+<em>
+string
+</em>
+</td>
+<td>
+<p>the Akeyless Kubernetes auth-method access-id</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>k8sConfName</code></br>
+<em>
+string
+</em>
+</td>
+<td>
+<p>Kubernetes-auth configuration name in Akeyless-Gateway</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>serviceAccountRef</code></br>
+<em>
+github.com/external-secrets/external-secrets/apis/meta/v1.ServiceAccountSelector
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Optional service account field containing the name of a kubernetes ServiceAccount.
+If the service account is specified, the service account secret token JWT will be used
+for authenticating with Akeyless. If the service account selector is not supplied,
+the secretRef will be used instead.</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>secretRef</code></br>
+<em>
+github.com/external-secrets/external-secrets/apis/meta/v1.SecretKeySelector
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Optional secret field containing a Kubernetes ServiceAccount JWT used
+for authenticating with Akeyless. If a name is specified without a key,
+<code>token</code> is the default. If one is not specified, the one bound to
+the controller will be used.</p>
 </td>
 </tr>
 </tbody>
@@ -2824,6 +2927,148 @@ SecretStoreStatus
 </em>
 </td>
 <td>
+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="external-secrets.io/v1beta1.DopplerAuth">DopplerAuth
+</h3>
+<p>
+(<em>Appears on:</em>
+<a href="#external-secrets.io/v1beta1.DopplerProvider">DopplerProvider</a>)
+</p>
+<p>
+</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>secretRef</code></br>
+<em>
+<a href="#external-secrets.io/v1beta1.DopplerAuthSecretRef">
+DopplerAuthSecretRef
+</a>
+</em>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="external-secrets.io/v1beta1.DopplerAuthSecretRef">DopplerAuthSecretRef
+</h3>
+<p>
+(<em>Appears on:</em>
+<a href="#external-secrets.io/v1beta1.DopplerAuth">DopplerAuth</a>)
+</p>
+<p>
+</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>dopplerToken</code></br>
+<em>
+github.com/external-secrets/external-secrets/apis/meta/v1.SecretKeySelector
+</em>
+</td>
+<td>
+<p>The DopplerToken is used for authentication.
+See <a href="https://docs.doppler.com/reference/api#authentication">https://docs.doppler.com/reference/api#authentication</a> for auth token types.
+The Key attribute defaults to dopplerToken if not specified.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="external-secrets.io/v1beta1.DopplerProvider">DopplerProvider
+</h3>
+<p>
+(<em>Appears on:</em>
+<a href="#external-secrets.io/v1beta1.SecretStoreProvider">SecretStoreProvider</a>)
+</p>
+<p>
+<p>DopplerProvider configures a store to sync secrets using the Doppler provider.
+Project and Config are required if not using a Service Token.</p>
+</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>auth</code></br>
+<em>
+<a href="#external-secrets.io/v1beta1.DopplerAuth">
+DopplerAuth
+</a>
+</em>
+</td>
+<td>
+<p>Auth configures how the Operator authenticates with the Doppler API</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>project</code></br>
+<em>
+string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Doppler project (required if not using a Service Token)</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>config</code></br>
+<em>
+string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Doppler config (required if not using a Service Token)</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>nameTransformer</code></br>
+<em>
+string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Environment variable compatible name transforms that change secret names to a different format</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>format</code></br>
+<em>
+string
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Format enables the downloading of secrets as a file (string)</p>
 </td>
 </tr>
 </tbody>
@@ -4292,6 +4537,17 @@ string
 <p>ProjectID specifies a project where secrets are located.</p>
 </td>
 </tr>
+<tr>
+<td>
+<code>environment</code></br>
+<em>
+string
+</em>
+</td>
+<td>
+<p>Environment environment_scope of gitlab CI/CD variables (Please see <a href="https://docs.gitlab.com/ee/ci/environments/#create-a-static-environment">https://docs.gitlab.com/ee/ci/environments/#create-a-static-environment</a> on how to create environments)</p>
+</td>
+</tr>
 </tbody>
 </table>
 <h3 id="external-secrets.io/v1beta1.GitlabSecretRef">GitlabSecretRef
@@ -5071,7 +5327,7 @@ SecretStoreStatus
 <a href="#external-secrets.io/v1beta1.SecretStoreSpec">SecretStoreSpec</a>)
 </p>
 <p>
-<p>SecretStoreProvider contains the provider-specific configration.</p>
+<p>SecretStoreProvider contains the provider-specific configuration.</p>
 </p>
 <table>
 <thead>
@@ -5303,6 +5559,20 @@ SenhaseguraProvider
 <td>
 <em>(Optional)</em>
 <p>Senhasegura configures this store to sync secrets using senhasegura provider</p>
+</td>
+</tr>
+<tr>
+<td>
+<code>doppler</code></br>
+<em>
+<a href="#external-secrets.io/v1beta1.DopplerProvider">
+DopplerProvider
+</a>
+</em>
+</td>
+<td>
+<em>(Optional)</em>
+<p>Doppler configures this store to sync secrets using the Doppler provider</p>
 </td>
 </tr>
 </tbody>
@@ -5582,8 +5852,7 @@ Kubernetes meta/v1.Time
 <a href="#external-secrets.io/v1beta1.SenhaseguraProvider">SenhaseguraProvider</a>)
 </p>
 <p>
-<pre><code>SenhaseguraAuth tells the controller how to do auth in senhasegura
-</code></pre>
+<p>SenhaseguraAuth tells the controller how to do auth in senhasegura.</p>
 </p>
 <table>
 <thead>
@@ -5622,8 +5891,7 @@ github.com/external-secrets/external-secrets/apis/meta/v1.SecretKeySelector
 <a href="#external-secrets.io/v1beta1.SenhaseguraProvider">SenhaseguraProvider</a>)
 </p>
 <p>
-<pre><code>SenhaseguraModuleType enum defines senhasegura target module to fetch secrets
-</code></pre>
+<p>SenhaseguraModuleType enum defines senhasegura target module to fetch secrets</p>
 </p>
 <table>
 <thead>
@@ -5646,8 +5914,7 @@ see: https://senhasegura.com/devops
 <a href="#external-secrets.io/v1beta1.SecretStoreProvider">SecretStoreProvider</a>)
 </p>
 <p>
-<pre><code>SenhaseguraProvider setup a store to sync secrets with senhasegura
-</code></pre>
+<p>SenhaseguraProvider setup a store to sync secrets with senhasegura.</p>
 </p>
 <table>
 <thead>
